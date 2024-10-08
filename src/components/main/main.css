@@ -1,0 +1,65 @@
+.posts-container {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 1rem;
+  }
+  
+  .post {
+    background-color: #f0f4f8;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-header h2 {
+    margin: 0;
+  }
+  
+  .post-content {
+    margin-top: 10px;
+  }
+  
+  .post-content img {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .user-profile-pic {
+    width: 40px; /* Adjust width as needed */
+    height: 40px; /* Adjust height as needed */
+    border-radius: 50%; /* Makes it circular */
+    margin-right: 10px; /* Space between the profile picture and name */
+    vertical-align: middle; /* Align the image vertically with text */
+  }
+
+  /* main.css */
+
+.loading-spinner {
+    border: 4px solid #f3f3f3; /* Light gray */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px; /* Size of the spinner */
+    height: 40px; /* Size of the spinner */
+    animation: spin 1s linear infinite; /* Animation for spinning effect */
+    margin: auto; /* Centering */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .loading-container {
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+  }
+  
