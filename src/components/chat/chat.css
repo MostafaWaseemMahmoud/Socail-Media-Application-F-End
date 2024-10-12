@@ -1,0 +1,151 @@
+/* chat.css */
+
+/* General Styles */
+.Room {
+    background-color: #f0f4f8; /* Light background */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Room Container */
+  .room-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Dynamic height for messages */
+    background-color: #ffffff; /* White background for chat box */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px; /* Limit width for larger screens */
+    padding: 20px;
+    margin: 20px 0;
+  }
+  
+  /* Title */
+  .room-container h1 {
+    font-size: 28px;
+    color: #333;
+    text-align: center; /* Center title */
+    margin: 0 0 10px 0;
+  }
+  
+  /* Messages Container */
+  .messages-container {
+    overflow-y: auto; /* Scrollable if overflow */
+    max-height: 400px; /* Limit height for scrolling */
+    padding: 10px 0; /* Space between messages and container */
+  }
+  
+  /* Individual Message */
+  .message {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Profile pic and message text */
+    align-items: center;
+    margin: 10px 0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background-color: #f9f9f9; /* Light grey background for messages */
+    transition: background-color 0.2s;
+  }
+  
+  .message:hover {
+    background-color: #e0e7ff; /* Light blue on hover */
+  }
+  
+  .message-user {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .profile_pic{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Round profile picture */
+    margin-right: 10px;
+    border: 2px solid #007bff; /* Blue border around profile pic */
+  }
+  
+  /* Message Text */
+  .message p {
+    margin: 0;
+    color: #555; /* Darker text color */
+    font-size: 16px;
+  }
+  
+  /* Input Area */
+  .input-area {
+    display: flex;
+    justify-content: space-between; /* Space between input and button */
+    align-items: center;
+    margin-top: 10px; /* Space from messages */
+  }
+  
+  input[type="text"] {
+    width: 100%; /* Full width */
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  input[type="text"]:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none; /* Remove outline */
+  }
+  
+  /* Button */
+  button {
+    padding: 12px 20px;
+    background-color: #007bff; /* Bootstrap primary color */
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px; /* Space between input and button */
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Lift effect */
+  }
+  
+  /* Loading Text */
+  p {
+    color: #888; /* Grey color for loading text */
+  }
+  
+  /* No Messages */
+  .no-messages {
+    text-align: center;
+    color: #999; /* Light grey for no messages text */
+    font-size: 18px;
+  }
+  
+
+  /* Add this to your existing chat.css */
+
+/* Home Button Styles */
+.home-button {
+    padding: 10px 15px;
+    background-color: #007bff; /* Bootstrap primary color */
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px; /* Space below the button */
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .home-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Lift effect */
+  }
+  
