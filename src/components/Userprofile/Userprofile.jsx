@@ -99,6 +99,10 @@ const Userprofile = () => {
     navigate(`/userprofile/${id}`);
   };
 
+  const GoChat = ()=> {
+    navigate(`/chat/${id}`)
+  }
+
   return (
     <>
       {userAccount ? (
@@ -122,7 +126,11 @@ const Userprofile = () => {
         </button>
           </>
       ) : isFriend ? (
-        <span className="AlreadyExist">Already in Your Friends List</span>
+        <>
+        <button className="addFriendBtn" onClick={GoChat}>
+          Chat Friend
+        </button>
+        </>
       ) : (
         <button className="addFriendBtn" onClick={addFriend}>
           Add Friend

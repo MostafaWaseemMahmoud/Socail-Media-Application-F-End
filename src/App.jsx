@@ -4,6 +4,7 @@ import Join from './components/join/join'; // Ensure the correct import casing
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Userprofile from './components/Userprofile/Userprofile';
 import Addpost from './components/AddPost/Addpost';
+import Chat from './components/chat/Chat';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -24,6 +25,7 @@ function App() {
           {/* User profile route */}
           <Route path='/userprofile/:id' element={<Userprofile />} />
           <Route path='/addpost/:id' element={<Addpost />} />
+          <Route path='/chat/:FriendId' element={<Chat />} />
         </Routes>
       </div>
     </Router>
