@@ -7,4 +7,7 @@ export default defineConfig({
   define: {
     global: {}, // Define global as an empty object
   },
+  build: {
+    chunkSizeWarningLimit: 1000, // or any size you prefer
+  },
 })
