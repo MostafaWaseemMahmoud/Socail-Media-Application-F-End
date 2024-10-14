@@ -24,7 +24,7 @@ const Userprofile = () => {
   useEffect(() => {
     const getUserData = async (id) => {
       try {
-        const res = await axios.get("https://social-media-back-end-gamma.vercel.app/users");
+        const res = await axios.get("https://social-media-back-end-gamma.vercel.app/usersettings/users");
         const allUsers = res.data;
         setAllusers(allUsers);
         const foundUser = allUsers.find((user) => user._id === id);
