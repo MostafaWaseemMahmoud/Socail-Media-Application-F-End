@@ -148,7 +148,7 @@ const Userprofile = () => {
           <div className="userInfo">
             <img
               className="ProfileCover"
-              src="http://scontent.fcai20-6.fna.fbcdn.net/v/t39.30808-6/458456965_524738193421132_2643238019393904708_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeE9tECO2Taw2r0aLJfYh76CEZjaz010jt0RmNrPTXSO3XR_n-qyhfvEFOF7wPwFlgo52X6uFx6bg2UseRinMMBU&_nc_ohc=o55MHGhjUIkQ7kNvgGjIXn-&_nc_ht=scontent.fcai20-6.fna&_nc_gid=ATtaBvEyOhpH-K8gprQ6_mt&oh=00_AYDY7tgA2tIrcVLrU55Q0Q9qhdSL05WJRllabdy8VoNX0g&oe=67099844"
+              src="https://scontent.fcai20-6.fna.fbcdn.net/v/t39.30808-6/458456965_524738193421132_2643238019393904708_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeE9tECO2Taw2r0aLJfYh76CEZjaz010jt0RmNrPTXSO3XR_n-qyhfvEFOF7wPwFlgo52X6uFx6bg2UseRinMMBU&_nc_ohc=sGj9KHBLvzwQ7kNvgHhX2Sh&_nc_ht=scontent.fcai20-6.fna&_nc_gid=ANO0coOjaOjg8gp13U2d_ke&oh=00_AYDt2h6OaKxlyhWcTR34QV7mr7E80rnOTd7GvWv3UfX_Hw&oe=6712D2C4"
               alt="Profile Cover"
               />
             <br />
