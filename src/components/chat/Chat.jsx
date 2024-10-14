@@ -34,7 +34,8 @@ const Chat = () => {
             user2ID: FriendId
           });
           setRoom(newRoomResponse.data);
-          setMessages([]);
+          setMessage
+          s([]);
         }
 
         // Fetch friend's data
@@ -46,9 +47,21 @@ const Chat = () => {
         setUserData(userResponse.data);
 
       } catch (error) {
-        console.error("Error fetching or creating room:", error.message);
-      } finally {
-        setLoading(false);
+        const newRoomResponse = await axios.post("https://social-media-back-end-gamma.vercel.app/rooms/addroom", {
+          user1ID: userId,
+          user2ID: FriendId
+        });
+        setRoom(newRoomResponse.data);
+        setMessages([]);
+              // Fetch friend's data
+      const friendResponse = await axios.get(`https://social-media-back-end-gamma.vercel.app/usersettings/users/${FriendId}`);
+      setFriendData(friendResponse.data);
+
+      // Fetch user data
+      const userResponse = await axios.get(`https://social-media-back-end-gamma.vercel.app/usersettings/users/${userId}`);
+      setUserData(userResponse.data);
+      }finally {
+        setLoading(false)
       }
     };
 

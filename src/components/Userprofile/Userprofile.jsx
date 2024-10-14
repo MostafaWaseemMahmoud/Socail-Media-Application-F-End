@@ -24,7 +24,7 @@ const Userprofile = () => {
   useEffect(() => {
     const getUserData = async (id) => {
       try {
-        const res = await axios.get("https://social-media-back-end-gamma.vercel.app/usersettings/users");
+        const res = await axios.get("https://social-media-back-end-gamma.vercel.app/users");
         const allUsers = res.data;
         setAllusers(allUsers);
         const foundUser = allUsers.find((user) => user._id === id);
@@ -32,7 +32,7 @@ const Userprofile = () => {
 
         // Check if the logged-in user is already a friend
         const loggedInUserId = window.localStorage.getItem("Id");
-        if (foundUser && foundUser.Friends && foundUser.Friends.includes(loggedInUserId)) {
+        if (foundUser && foundUser.friends && foundUser.friends.includes(loggedInUserId)) {
           setIsFriend(true); // Set to true if already friends
         } else {
           setIsFriend(false); // Set to false if not friends
@@ -58,7 +58,7 @@ const Userprofile = () => {
       // Automatically update the user's Friends array
       setUser((prevUser) => ({
         ...prevUser,
-        Friends: [...prevUser.Friends, userId], // Add logged-in user's ID to the Friends array
+        Friends: [...prevUser.friends, userId], // Add logged-in user's ID to the Friends array
       }));
 
       // Update the isFriend state to true after adding a friend
@@ -72,7 +72,7 @@ const Userprofile = () => {
   // Fetch user's friends
   const setUserFreindsFunc = () => {
     try {
-      const friendsList = Allusers.filter(user_From_All => user.Friends.includes(user_From_All._id));
+      const friendsList = Allusers.filter(user_From_All => user.friends.includes(user_From_All._id));
       setUserFreinds(friendsList);
     } catch (error) {
       console.log("Error While Showing User Data:", error);
@@ -148,7 +148,7 @@ const Userprofile = () => {
           <div className="userInfo">
             <img
               className="ProfileCover"
-              src="https://scontent.fcai20-6.fna.fbcdn.net/v/t39.30808-6/458456965_524738193421132_2643238019393904708_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeE9tECO2Taw2r0aLJfYh76CEZjaz010jt0RmNrPTXSO3XR_n-qyhfvEFOF7wPwFlgo52X6uFx6bg2UseRinMMBU&_nc_ohc=o55MHGhjUIkQ7kNvgGjIXn-&_nc_ht=scontent.fcai20-6.fna&_nc_gid=ATtaBvEyOhpH-K8gprQ6_mt&oh=00_AYDY7tgA2tIrcVLrU55Q0Q9qhdSL05WJRllabdy8VoNX0g&oe=67099844"
+              src="http://scontent.fcai20-6.fna.fbcdn.net/v/t39.30808-6/458456965_524738193421132_2643238019393904708_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeE9tECO2Taw2r0aLJfYh76CEZjaz010jt0RmNrPTXSO3XR_n-qyhfvEFOF7wPwFlgo52X6uFx6bg2UseRinMMBU&_nc_ohc=o55MHGhjUIkQ7kNvgGjIXn-&_nc_ht=scontent.fcai20-6.fna&_nc_gid=ATtaBvEyOhpH-K8gprQ6_mt&oh=00_AYDY7tgA2tIrcVLrU55Q0Q9qhdSL05WJRllabdy8VoNX0g&oe=67099844"
               alt="Profile Cover"
               />
             <br />
@@ -156,7 +156,7 @@ const Userprofile = () => {
               <img className="profilePic" src={user.profilePic} alt="Profile Pic" />
               <div className="user-details">
                 <h1>{user.name}</h1>
-                <span>{user.Friends?.length || 0} Friends</span>
+                <span>{user.friends?.length || 0} Friends</span>
                 <div className="Friends">
                   {userFreinds.map((friend, index) => (
                     <img
@@ -172,9 +172,9 @@ const Userprofile = () => {
             </div>
           </div>
 
-          {user?.Posts?.length > 0 ? (
+          {user?.posts?.length > 0 ? (
   <div className="user-posts">
-    {user.Posts.map((post, index) => (
+    {user.posts.map((post, index) => (
       <div className="post" key={index}>
         <div className="user-details">
           <img src={user.profilePic} alt="User" />

@@ -65,8 +65,8 @@ const Main = () => {
         <div className="posts-container">
           {users.length > 0 ? (
             users.map((user) => (
-              user.Posts && user.Posts.length > 0 ? ( // Check if user has posts
-                user.Posts.map((post, index) => (
+              user.posts && user.posts.length > 0 ? ( // Check if user has posts
+                user.posts.map((post, index) => (
                   <div className="post" key={index}>
                     <div className="post-header">
                       <img
