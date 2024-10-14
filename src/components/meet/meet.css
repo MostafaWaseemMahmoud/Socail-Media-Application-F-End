@@ -1,0 +1,84 @@
+.join-screen {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.sc {
+    background-color: red;
+    padding: 50px;
+    border-radius: 20px;
+    background-color: gray;
+}
+
+.sc .join {
+    border-bottom: solid blanchedalmond 1px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.sc button {
+    margin-top: 20px;
+}
+
+.sc .create {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.participant-grid:nth-child(1) .div-cam .react-player {
+    display: none;
+}
+
+
+.participant-grid {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    align-content: space-around;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    margin-top: 40px;
+}
+
+.participant-grid .participant-view {
+    padding: 20px;
+    margin: 20px;
+    color: #fff;
+    background: #007bff;
+}
+.participant-grid .participant-view p {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.controls {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: #007bff;
+}
+
+.meet {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}

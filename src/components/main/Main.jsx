@@ -53,8 +53,13 @@ const Main = () => {
     navigate(`/userprofile/${userId}`);
   };
 
+  const GoLive = ()=> {
+    navigate('/meet')
+  }
+
   return (
     <main>
+      <button onClick={GoLive} className='meet'>Go Meet</button>
       <Header user={user} /> {/* Pass the current user to Header */}
       {error && <div className="error">{error}</div>} {/* Display error message if any */}
       {loading ? ( // Show spinner while loading
