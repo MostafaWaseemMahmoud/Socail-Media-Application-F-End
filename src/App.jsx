@@ -27,7 +27,7 @@ function App() {
           <Route path='/userprofile/:id' element={<Userprofile />} />
           <Route path='/addpost/:id' element={<Addpost />} />
           <Route path='/chat/:FriendId' element={<Chat />} />
-          <Router path='/room' element={VideoCall}/>
+          <Router path='/room' element={<VideoCall />}/>
         </Routes>
       </div>
     </Router>
