@@ -78,7 +78,7 @@ body {
   
   /* Posts Section Styles */
   .user-posts {
-    margin-top: 1.5rem;
+    margin-top: 1.20px;
   }
   
   .post {
@@ -90,10 +90,17 @@ body {
   }
   
   .user-details img {
-    width: 40px;
-    height: 40px;
+    max-width: 40px;
+    max-height: 40px;
     border-radius: 50%;
   }
+
+  .user-profile-pic{
+    width: 20px;
+    height: 20px;
+  }
+
+  
   
   .post-detail h3 {
     font-size: 1.2rem;
@@ -148,4 +155,13 @@ body {
     padding: 11px 20px;
     margin-top: 20px;
     background-color: #0056b3; /* Darker blue on hover */
+}
+
+.user-profile-pic-1 {
+  width: 500px;
+  height: 500px;
+}
+
+.comments {
+  margin-top:20px
 }

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Import your components
 import Main from './components/main/Main';
-import Join from './components/join/Join'; // Ensure the correct import casing
+import Join from './components/join/join'; // Ensure the correct import casing
 import Userprofile from './components/Userprofile/Userprofile';
 import Addpost from './components/AddPost/Addpost';
 import Chat from './components/chat/Chat';

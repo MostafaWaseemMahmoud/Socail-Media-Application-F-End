@@ -13,12 +13,12 @@ const Chat = () => {
   const [userData, setUserData] = useState(null);
   const inputRef = createRef();
   const navigate = useNavigate();
-
+  const API_URL = "https://social-media-back-end-gamma.vercel.app"
   useEffect(() => {
     const fetchUserRooms = async () => {
       setLoading(true);
       try {
-        const userRoomsResponse = await axios.get(`https://social-media-back-end-gamma.vercel.app/rooms/getuserrooms/${userId}`);
+        const userRoomsResponse = await axios.get(API_URL + `/rooms/getuserrooms/${userId}`);
         const userRooms = userRoomsResponse.data;
 
         const existingRoom = userRooms.find(room => 
@@ -29,7 +29,7 @@ const Chat = () => {
           setRoom(existingRoom);
           setMessages(existingRoom.messages || []);
         } else {
-          const newRoomResponse = await axios.post("https://social-media-back-end-gamma.vercel.app/rooms/addroom", {
+          const newRoomResponse = await axios.post(API_URL + "/rooms/addroom", {
             user1ID: userId,
             user2ID: FriendId
           });
@@ -39,26 +39,26 @@ const Chat = () => {
         }
 
         // Fetch friend's data
-        const friendResponse = await axios.get(`https://social-media-back-end-gamma.vercel.app/usersettings/users/${FriendId}`);
+        const friendResponse = await axios.get(API_URL + `/usersettings/users/${FriendId}`);
         setFriendData(friendResponse.data);
 
         // Fetch user data
-        const userResponse = await axios.get(`https://social-media-back-end-gamma.vercel.app/usersettings/users/${userId}`);
+        const userResponse = await axios.get(API_URL + `/usersettings/users/${userId}`);
         setUserData(userResponse.data);
 
       } catch (error) {
-        const newRoomResponse = await axios.post("https://social-media-back-end-gamma.vercel.app/rooms/addroom", {
+        const newRoomResponse = await axios.post(API_URL + "/rooms/addroom", {
           user1ID: userId,
           user2ID: FriendId
         });
         setRoom(newRoomResponse.data);
         setMessages([]);
               // Fetch friend's data
-      const friendResponse = await axios.get(`https://social-media-back-end-gamma.vercel.app/usersettings/users/${FriendId}`);
+      const friendResponse = await axios.get(API_URL + `/usersettings/users/${FriendId}`);
       setFriendData(friendResponse.data);
 
       // Fetch user data
-      const userResponse = await axios.get(`https://social-media-back-end-gamma.vercel.app/usersettings/users/${userId}`);
+      const userResponse = await axios.get(API_URL + `/usersettings/users/${userId}`);
       setUserData(userResponse.data);
       }finally {
         setLoading(false)
@@ -73,7 +73,7 @@ const Chat = () => {
     if (!messageContent.trim()) return;
 
     try {
-      const response = await axios.post(`https://social-media-back-end-gamma.vercel.app/rooms/addmessage/${room._id}`, {
+      const response = await axios.post(API_URL + `/rooms/addmessage/${room._id}`, {
         userId: userId,
         messageContent: messageContent
       });

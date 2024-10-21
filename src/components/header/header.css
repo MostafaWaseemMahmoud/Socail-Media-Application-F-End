@@ -26,3 +26,17 @@ header {
 .loading {
     margin: 20px;
 }
+
+
+@media screen and (max-width:490px) {
+    header {
+        display: block;
+        align-items: center;
+    }
+    .side {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        width: 100%;
+    }
+}
