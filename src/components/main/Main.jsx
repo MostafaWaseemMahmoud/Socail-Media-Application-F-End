@@ -5,101 +5,104 @@ import { useNavigate } from 'react-router-dom';
 import './main.css'; // Import your CSS file for styling if needed
 
 const Main = () => {
-  const [user, setUser] = useState(null); // State to store the current user's data
-  const [users, setUsers] = useState([]); // State to store all users data
-  const [error, setError] = useState(null); // State to store errors
-  const [loading, setLoading] = useState(true); // State for loading
-  const [newComment, setNewComment] = useState(''); // State for new comment
+  const [user, setUser] = useState(null); // Current logged-in user data
+  const [users, setUsers] = useState([]); // All users data
+  const [error, setError] = useState(null); // Errors during fetch
+  const [loading, setLoading] = useState(true); // Loading state for data
+  const [newComment, setNewComment] = useState(''); // New comment state
   const navigate = useNavigate(); // Initialize useNavigate
-  const API_URL = "https://social-media-back-end-gamma.vercel.app";
+  const API_URL = 'https://social-media-back-end-gamma.vercel.app';
 
-  // Function to fetch the logged-in user's data
+  // Fetch the logged-in user data
   const getUser = async () => {
     try {
-      const currentUserId = window.localStorage.getItem("Id"); // Get the current user's ID from localStorage
-      const res = await axios.get(API_URL + "/usersettings/users");
-      const currentUser = res.data.find(user => user._id === currentUserId); // Find the current user
+      const currentUserId = window.localStorage.getItem('Id'); // Retrieve the user's ID from localStorage
+      const res = await axios.get(API_URL + '/usersettings/users');
+      const currentUser = res.data.find((user) => user._id === currentUserId);
 
       if (currentUser) {
-        setUser(currentUser); // Store the current user in state
+        setUser(currentUser); // Set current user in state
       } else {
-        setError("User not found"); // If the user isn't found
+        setError('User not found');
       }
     } catch (e) {
-      console.error("Error fetching user:", e);
+      console.error('Error fetching user:', e);
       setError(`Error fetching user: ${e.message}`);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); // Stop loading after fetching user data
     }
   };
 
-  // Function to fetch all users and their posts
+  // Fetch all users' data
   const getUsers = async () => {
     try {
-      const res = await axios.get(API_URL + "/usersettings/users");
+      const res = await axios.get(API_URL + '/usersettings/users');
       setUsers(res.data); // Set all users in state
     } catch (e) {
-      console.error("Error fetching users:", e);
+      console.error('Error fetching users:', e);
       setError(`Error fetching users: ${e.message}`);
     }
   };
 
-  // useEffect to fetch user and users when the component mounts
+  // Run the fetch functions when the component mounts
   useEffect(() => {
-    getUser(); // Fetch the logged-in user
+    getUser(); // Fetch logged-in user data
     getUsers(); // Fetch all users
-  }, []); // Empty dependency array ensures this runs once after the initial render
+  }, []); // Empty array ensures this runs only once after the initial render
 
-  // Function to handle navigation to the user profile
+  // Navigate to user profile page
   const navigateToUserProfile = (userId) => {
     navigate(`/userprofile/${userId}`);
   };
 
+  // Navigate to the 'Go Meet' page
   const GoLive = () => {
     navigate('/meet');
   };
 
-  // Function to handle submitting a comment
+  // Submit a comment on a post
   const handleCommentSubmit = async (postId, userPostId) => {
-    if (!newComment) return; // Prevent submitting empty comments
+    if (!newComment) return; // Prevent empty comments from being submitted
 
     try {
       await axios.post(`${API_URL}/posts/commentpost`, {
-        postId: postId, // ID of the post being commented on
-        userPostId: userPostId, // ID of the user who owns the post
-        commentDescription: newComment, // Comment text
+        postId,
+        userPostId,
+        commentDescription: newComment, // Add the new comment text
       });
-      setNewComment(''); // Clear the input field after submission
-      getUsers(); // Refresh posts after commenting
+      setNewComment(''); // Clear the input field after submitting the comment
+      getUsers(); // Refresh the posts to include the new comment
     } catch (error) {
-      console.error("Error adding comment:", error);
+      console.error('Error adding comment:', error);
     }
   };
 
-  // Function to handle liking a post
-  const handleLikePost = async (postId,userId) => {
+  // Like a post
+  const handleLikePost = async (postId, userId) => {
     try {
       await axios.post(`${API_URL}/posts/likepost/${userId}/${postId}`);
-      getUsers(); // Refresh posts after liking
+      getUsers(); // Refresh posts after liking a post
     } catch (error) {
-      console.error("Error adding like:", error);
+      console.error('Error adding like:', error);
     }
   };
 
   return (
     <main>
-      <button onClick={GoLive} className='meet'>Go Meet</button>
-      <Header user={user} /> {/* Pass the current user to Header */}
-      {error && <div className="error">{error}</div>} {/* Display error message if any */}
-      {loading ? ( // Show spinner while loading
+      <button onClick={GoLive} className="meet">Go Meet</button>
+      <Header user={user} /> {/* Pass the logged-in user to Header */}
+
+      {error && <div className="error">{error}</div>} {/* Show error message if there's an error */}
+      
+      {loading ? (
         <div className="loading-container">
-          <div className="loading-spinner"></div>
+          <div className="loading-spinner"></div> {/* Add a spinner during loading */}
         </div>
       ) : (
         <div className="posts-container">
           {users.length > 0 ? (
-            users.map((user) => (
-              user.posts && user.posts.length > 0 ? ( // Check if user has posts
+            users.map((user) =>
+              user.posts && user.posts.length > 0 ? ( // Check if the user has posts
                 user.posts.map((post, index) => (
                   <div className="post" key={index}>
                     <div className="post-header">
@@ -107,23 +110,21 @@ const Main = () => {
                         className="user-profile-pic"
                         src={user.profilePic}
                         alt="Profile"
-                        onClick={() => navigateToUserProfile(user._id)} // Navigate on click
+                        onClick={() => navigateToUserProfile(user._id)} // Navigate to profile on click
                       />
-                      <h2
-                        onClick={() => navigateToUserProfile(user._id)} // Navigate on click
-                      >
+                      <h2 onClick={() => navigateToUserProfile(user._id)}>
                         {user.name}
                       </h2>
                     </div>
                     <div className="post-content">
-                      <h3>{post.postDescription}</h3> {/* Displaying post description */}
-                      {post.mediaUrl && <img src={post.mediaUrl} alt="Post media" />} {/* Displaying media if available */}
+                      <h3>{post.postDescription}</h3> {/* Post description */}
+                      {post.mediaUrl && <img src={post.mediaUrl} alt="Post media" />} {/* Display post media if available */}
                     </div>
                     <div className="post-actions">
-                      <button onClick={() => handleLikePost(post._id,user._id)}>
+                      <button onClick={() => handleLikePost(post._id, user._id)}>
                         Like
                       </button>
-                      <span class="likes">{post.likes ? post.likes : 0} Likes</span> {/* Displaying number of likes */}
+                      <span className="likes">{post.likes ? post.likes : 0} Likes</span>
                       <input
                         type="text"
                         value={newComment}
@@ -136,9 +137,7 @@ const Main = () => {
                     </div>
                     <div className="comments">
                       {post.comments && post.comments.length > 0 ? (
-                        post.comments.map((comment, idx) => (
-                          <p key={idx}>{comment}</p>
-                        ))
+                        post.comments.map((comment, idx) => <p key={idx}>{comment}</p>)
                       ) : (
                         <p>No comments yet</p>
                       )}
@@ -146,9 +145,9 @@ const Main = () => {
                   </div>
                 ))
               ) : null
-            ))
+            )
           ) : (
-            <p>No posts available.</p> // Message if no posts
+            <p>No posts available.</p> // Message if no posts exist
           )}
         </div>
       )}

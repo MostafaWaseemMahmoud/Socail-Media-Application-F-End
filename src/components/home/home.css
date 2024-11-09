@@ -1,0 +1,74 @@
+/* Header Styling */
+.Home_header {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .Home_header.show {
+    opacity: 1;
+  }
+  
+  /* Main Section */
+  .Home_main {
+    padding: 20px;
+  }
+  
+  .learn-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .learn-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .learn-card.show {
+    opacity: 1;
+    transform: translateY(0); /* Slide in from below */
+  }
+  
+  .learn-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .learn-card h2 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 10px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .learn-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .learn-cards {
+      grid-template-columns: 1fr;
+    }
+  
+    .Home_header .btns button {
+      width: 100%;
+    }
+  }
+  
