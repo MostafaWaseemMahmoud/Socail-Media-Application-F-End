@@ -18,10 +18,10 @@ main {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background: #fff;
+  background: #0000;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 80%;
+  width: 50%;
   max-width: 1200px;
   margin: 20px auto;
 }
@@ -64,7 +64,7 @@ main {
 
 .loading-spinner {
   border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db;
+  border-top: 8px solid #f8d300;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -86,7 +86,7 @@ main {
 
 /* Post */
 .post {
-  background: #fff;
+  background: #0000;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -123,12 +123,18 @@ main {
 }
 
 .post-header h2:hover {
-  color: #3498db;
+  color: #f8d300;
 }
 
 /* Post Content */
 .post-content {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
+    flex-direction: column;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
 }
 
 .post-content h3 {
@@ -139,11 +145,11 @@ main {
 }
 
 .post-content img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-top: 10px;
+    width: 50%;
+    max-width: 50%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 /* Post Actions */
@@ -154,8 +160,8 @@ main {
 }
 
 .post-actions button {
-  background-color: #3498db;
-  color: white;
+  background-color: #f8d300;
+  color: rgb(0, 0, 0);
   padding: 8px 16px;
   border: none;
   border-radius: 25px;
@@ -164,7 +170,7 @@ main {
 }
 
 .post-actions button:hover {
-  background-color: #2980b9;
+  background-color: #f8d300;
   transform: scale(1.05);
 }
 
@@ -179,20 +185,48 @@ main {
 }
 
 .post-actions input:focus {
-  border-color: #3498db;
+  border-color: #f8d300;
 }
 
 /* Comments Section */
 .comments {
-  margin-top: 10px;
-  padding-left: 20px;
-  border-left: 2px solid #f0f0f0;
+    margin-top: 20px;
+    display: flex
+;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-height: 220px;
 }
 
-.comments p {
-  font-size: 1rem;
-  color: #555;
-  margin: 5px 0;
+.comments .comment {
+font-size: 1rem;
+    color: #000000;
+    margin: 5px 0;
+    border-color: #f8d300;
+    padding: 12px;
+    background-color: #f8d300;
+    min-width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+    display: flex
+;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: left;
+}
+
+.comment p {
+      display: flex
+;
+    /* align-items: center; */
+    justify-content: left;
+    margin-top: 12px;
+    margin-left: 10px;
+}
+.comment h2:hover {
+  color: red;
 }
 
 /* Likes Counter */
@@ -210,4 +244,17 @@ main {
   .post-actions input {
     width: 150px;
   }
+}
+
+
+
+.error {
+  position:fixed;
+  left:40px;
+  top:70px
+}
+
+.in-comments-container {
+    overflow: scroll;
+    width: 50%;
 }

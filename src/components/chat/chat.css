@@ -119,6 +119,7 @@
   /* Loading Text */
   p {
     color: #888; /* Grey color for loading text */
+    margin-top:20px;
   }
   
   /* No Messages */

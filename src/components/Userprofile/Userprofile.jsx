@@ -1,12 +1,13 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './userprofile.css';
-import axios from 'axios';
 
 const Userprofile = () => {
   const { id } = useParams();
   const [userAccount, setUserAccount] = useState(false);
+  const [users,setUsers] = useState(null)
   const { logout } = useAuth0();
   const [user, setUser] = useState(null);
   const [isFriend, setIsFriend] = useState(false);
@@ -14,27 +15,42 @@ const Userprofile = () => {
   const [userFriends, setUserFriends] = useState([]);
   const [newComment, setNewComment] = useState(''); // State for new comment
   const [refresh, setRefresh] = useState(false); // To refresh posts after like/comment
+    const [error, setError] = useState(null); // Errors during fetch
+
   const navigate = useNavigate();
   const API_URL = "https://social-media-back-end-gamma.vercel.app";
+
+  useEffect(() => {
+  getUsers();
+}, []);
 
   useEffect(() => {
     const storedId = window.localStorage.getItem('Id');
     setUserAccount(id === storedId);
   }, [id]);
 
+    const getUsers = async () => {
+    try {
+      const res = await axios.get(API_URL + '/usersettings/users');
+      setUsers(res.data); // Set all users in state
+    } catch (e) {
+      console.error('Error fetching users:', e);
+    }
+  };
+
+  const getUserData = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/usersettings/users`);
+      const foundUser = res.data.find((user) => user._id === id);
+      setUser(foundUser);
+      const loggedInUserId = window.localStorage.getItem("Id");
+      setIsFriend(foundUser?.friends.includes(loggedInUserId) || false);
+      setAllUsers(res.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
   useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const res = await axios.get(`${API_URL}/usersettings/users`);
-        const foundUser = res.data.find((user) => user._id === id);
-        setUser(foundUser);
-        const loggedInUserId = window.localStorage.getItem("Id");
-        setIsFriend(foundUser?.friends.includes(loggedInUserId) || false);
-        setAllUsers(res.data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
 
     getUserData();
   }, [id, refresh]); // Refresh when new like/comment is added
@@ -79,49 +95,45 @@ const Userprofile = () => {
     navigate(`/chat/${id}`);
   };
 
-  const handleLikePost = async (postId) => {
+  const handleLikePost = async (postId, userId) => {
     try {
-      await axios.post(`${API_URL}/posts/likepost/${id}/${postId}`);
-      setRefresh(!refresh); // Trigger a refresh to update likes
+      const res = await axios.post(`${API_URL}/posts/likepost/${window.localStorage.getItem("Id")}/${userId}/${postId}`);
+      getUsers(); // Refresh posts after liking a post
+      console.log(res);
     } catch (error) {
-      console.error("Error liking post:", error);
+      setError(error.response.data);
+      setTimeout(() => {
+        setError(null)
+      }, 4000);
     }
   };
 
   const handleCommentSubmit = async (postId, userPostId) => {
-    if (!newComment) return; // Prevent submitting empty comments
-  
+    if (!newComment) return; // Prevent empty comments from being submitted
+    console.log({
+        postId,
+        userPostId,
+        commentDescription: newComment, // Add the new comment text
+        userid:window.localStorage.getItem("Id")
+      })
     try {
-      await axios.post(`${API_URL}/posts/commentpost`, {
-        postId: postId, // ID of the post being commented on
-        userPostId: userPostId, // ID of the user who owns the post
-        commentDescription: newComment, // Comment text
+      const res = await axios.post(`${API_URL}/posts/commentpost`, {
+        postId,
+        userPostId,
+        commentDescription: newComment, // Add the new comment text
+        userid:window.localStorage.getItem("Id")
       });
-  
-      // Clear the input field after submission
-      setNewComment('');
-  
-      // Update the state to add the new comment to the post without refreshing
-      setUser((prevUser) => ({
-        ...prevUser,
-        posts: prevUser.posts.map((post) => {
-          if (post._id === postId) {
-            return {
-              ...post,
-              comments: [...post.comments, newComment], // Add new comment to comments array
-            };
-          }
-          return post;
-        }),
-      }));
-  
+      console.log('res',res)
+      setNewComment(''); // Clear the input field after submitting the comment
+      getUserData(); // Refresh the posts to include the new comment
     } catch (error) {
-      console.error("Error adding comment:", error);
+      console.error('Error adding comment:', error);
     }
   };
 
   return (
     <>
+          {error && <div className="error">{error}</div>} {/* Show error message if there's an error */}
       {userAccount ? (
         <>
           <button className="logoutButton" onClick={() => {
@@ -132,7 +144,7 @@ const Userprofile = () => {
         </>
       ) : (
         <button className="addFriendBtn" onClick={isFriend ? GoChat : addFriend}>
-          {isFriend ? "Chat Friend" : "Add Friend"}
+          {isFriend ? "Chat Following" : "Follow Him"}
         </button>
       )}
       <button className="homeButton" onClick={navigateHome}>Go to Home</button>
@@ -144,7 +156,7 @@ const Userprofile = () => {
               <img className="profilePic" src={user.profilePic} alt="Profile Pic" />
               <div className="user-details">
                 <h1>{user.name}</h1>
-                <span>{user.friends?.length || 0} Friends</span>
+                <span>{user.friends?.length || 0} Following</span>
                 <div className="Friends">
                   {userFriends.map((friend, index) => (
                     <img key={index} className="FriendprofilePic" src={friend.profilePic} alt={friend.name} onClick={() => showUser(friend._id)} />
@@ -162,29 +174,51 @@ const Userprofile = () => {
                   <div className="post-detail">
                     <h3>{post.postDescription || "No description available."}</h3>
                   </div>
-                  {post.mediaUrl && <img className="user-profile-pic-1" src={post.mediaUrl} alt="Post" />}
-                  
+                  {post.mediaUrl != "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIALsBTQMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQIG/9oACAEBAAAAAOaAoAAABAACgAAAIAAKAAAAgAAoAAABAACgAAAIAACgAABAAAoAAACAAAoAAAgAABQAACACUAKAAAgAAAKAAgAAAAoAEAAAAAFCAAAAAAUgAACKAAAAAAgKAAAAAECgAAAAAICgAAAAEACgAAAAQAAUAAAIAAFAAAAgAAoAAAEAAAAUAgAAayAAAAAAH//EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAKAgIQAxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/xAAYEAEAAwEAAAAAAAAAAAAAAAACIVBxkP/aAAgBAQABPwDuMoS2q//EABQRAQAAAAAAAAAAAAAAAAAAAHD/2gAIAQIBAT8AfP/EABQRAQAAAAAAAAAAAAAAAAAAAHD/2gAIAQMBAT8AfP/Z" ? <img className="user-profile-pic-1" src={post.mediaUrl} alt="Post" /> : null}
+
                   <div className="post-actions">
-                    <button onClick={() => handleLikePost(post._id)}>Like</button>
-                    <span>{post.likes ? post.likes : 0} Likes</span> {/* Display number of likes */}
+                      <button onClick={() => handleLikePost(post.id, user._id)}>
+                        Like
+                      </button>
+                      <span>{post.likes.length}Like</span>
                     <input
                       type="text"
                       value={newComment}
                       onChange={(e) => setNewComment(e.target.value)}
                       placeholder="Add a comment"
                     />
-                    <button onClick={() => handleCommentSubmit(post._id,id)}>Comment</button>
+                    <button onClick={() => handleCommentSubmit(post.id,id)}>Comment</button>
                   </div>
 
-                  <div className="comments">
-                    {post.comments && post.comments.length > 0 ? (
-                      post.comments.map((comment, idx) => (
-                        <p key={idx}>{comment}</p>
-                      ))
-                    ) : (
-                      <p>No comments yet</p>
-                    )}
-                  </div>
+<div className="comments">
+  <div className="in-comments-container">
+
+  {post.comments && post.comments.length > 0 ? (
+    post.comments.map((comment, idx) => {
+      const commentedUser = users?.find(u => u._id === comment.commentuserId);
+
+      return (
+        <div className="comment" key={idx}>
+          <div className="comment-user">
+            {commentedUser ? (
+              <>
+                              <div className='post-header' onClick={()=>navigate(`/userprofile/${commentedUser._id}`)}>
+                                <img className='user-profile-pic' src={commentedUser.profilePic}/>
+                                <h2>{commentedUser.name}</h2></div>
+              </>
+            ) : (
+              <strong>Unknown User</strong>
+            )}
+          </div>
+          <p>{comment.commentDescription}</p>
+        </div>
+      );
+    })
+  ) : (
+    <p>No comments yet</p>
+  )}
+</div>
+</div>
                 </div>
               )) : <p>No posts available.</p>}
             </div>
