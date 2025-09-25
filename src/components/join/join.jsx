@@ -22,7 +22,7 @@ const Join = ({ setIsLogin }) => {
           formData.append('likes', 0);
 
           // Send a POST request to register the user in the backend
-          const response = await axios.post('http://localhost:3000/usersettings/addUser', formData);
+          const response = await axios.post('https://social-media-back-end-gamma.vercel.app/usersettings/addUser', formData);
 
           // Save user details in localStorage
           window.localStorage.setItem('Id', response.data._id);
