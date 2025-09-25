@@ -1,152 +1,147 @@
-/* chat.css */
-
-/* General Styles */
 .Room {
-    background-color: #f0f4f8; /* Light background */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Room Container */
-  .room-container {
-    display: grid;
-    grid-template-rows: auto 1fr auto; /* Dynamic height for messages */
-    background-color: #ffffff; /* White background for chat box */
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 700px; /* Limit width for larger screens */
-    padding: 20px;
-    margin: 20px 0;
-  }
-  
-  /* Title */
-  .room-container h1 {
-    font-size: 28px;
-    color: #333;
-    text-align: center; /* Center title */
-    margin: 0 0 10px 0;
-  }
-  
-  /* Messages Container */
-  .messages-container {
-    overflow-y: auto; /* Scrollable if overflow */
-    max-height: 400px; /* Limit height for scrolling */
-    padding: 10px 0; /* Space between messages and container */
-  }
-  
-  /* Individual Message */
-  .message {
-    display: grid;
-    grid-template-columns: auto 1fr; /* Profile pic and message text */
-    align-items: center;
-    margin: 10px 0;
-    padding: 12px 16px;
-    border-radius: 8px;
-    background-color: #f9f9f9; /* Light grey background for messages */
-    transition: background-color 0.2s;
-  }
-  
-  .message:hover {
-    background-color: #e0e7ff; /* Light blue on hover */
-  }
-  
-  .message-user {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-  }
-  
-  .profile_pic{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%; /* Round profile picture */
-    margin-right: 10px;
-    border: 2px solid #007bff; /* Blue border around profile pic */
-  }
-  
-  /* Message Text */
-  .message p {
-    margin: 0;
-    color: #555; /* Darker text color */
-    font-size: 16px;
-  }
-  
-  /* Input Area */
-  .input-area {
-    display: flex;
-    justify-content: space-between; /* Space between input and button */
-    align-items: center;
-    margin-top: 10px; /* Space from messages */
-  }
-  
-  input[type="text"] {
-    width: 100%; /* Full width */
-    padding: 12px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-  }
-  
-  input[type="text"]:focus {
-    border-color: #007bff; /* Blue border on focus */
-    outline: none; /* Remove outline */
-  }
-  
-  /* Button */
-  button {
-    padding: 12px 20px;
-    background-color: #007bff; /* Bootstrap primary color */
-    border: none;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px; /* Space between input and button */
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: translateY(-2px); /* Lift effect */
-  }
-  
-  /* Loading Text */
-  p {
-    color: #888; /* Grey color for loading text */
-    margin-top:20px;
-  }
-  
-  /* No Messages */
-  .no-messages {
-    text-align: center;
-    color: #999; /* Light grey for no messages text */
-    font-size: 18px;
-  }
-  
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top, #1e1e2f, #12121c);
+  color: white;
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 1s ease-in;
+}
 
-  /* Add this to your existing chat.css */
-
-/* Home Button Styles */
 .home-button {
-    padding: 10px 15px;
-    background-color: #007bff; /* Bootstrap primary color */
-    border: none;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 20px; /* Space below the button */
-    transition: background-color 0.3s, transform 0.2s;
+  background: linear-gradient(45deg, #ff00cc, #3333ff);
+  color: white;
+  padding: 12px 24px;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+.home-button:hover {
+  transform: scale(1.08);
+}
+
+.room-container {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  padding: 25px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 0 15px #ff00cc66;
+  animation: floatUp 0.8s ease-in-out;
+}
+
+.room-container h1 {
+  text-align: center;
+  color: #ff80ff;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.messages-container {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  scrollbar-width: thin;
+  scrollbar-color: #ff00cc #1e1e2f;
+}
+.messages-container::-webkit-scrollbar {
+  width: 8px;
+}
+.messages-container::-webkit-scrollbar-thumb {
+  background-color: #ff00cc;
+  border-radius: 20px;
+}
+
+.message {
+  background: rgba(255, 255, 255, 0.07);
+  padding: 15px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.message:hover {
+  transform: scale(1.01);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.message-user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.message-user img.profile_pic {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #ff00cc;
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.input-area input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 25px;
+  background: #2a2a3b;
+  border: 1px solid #555;
+  color: white;
+  outline: none;
+  transition: 0.3s;
+}
+.input-area input:focus {
+  border-color: #ff00cc;
+  background-color: #333344;
+}
+.input-area button {
+  background: linear-gradient(45deg, #ff00cc, #3333ff);
+  color: white;
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.input-area button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #ff00cc, #5500ff);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
-  .home-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: translateY(-2px); /* Lift effect */
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

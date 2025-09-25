@@ -63,7 +63,10 @@ const Addpost = () => {
           {error && <div className="error-message">{error}</div>}
           <input type="text" ref={postTitleRef} placeholder="Post Title" />
           <input type="text" ref={postDescRef} placeholder="Post Description" />
-          <input type="file" ref={fileRef} placeholder='Media If Want'/>
+          <label htmlFor="file-upload" className="file-upload-label">
+  📁 Add Media If Want
+</label>
+<input type="file" id="file-upload" ref={fileRef} className="file-input" />
           <button type="button" onClick={getPostData}>Add Post</button>
         </form>
       )}
